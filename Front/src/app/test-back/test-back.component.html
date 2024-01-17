@@ -1,0 +1,40 @@
+<table *ngIf="tasks.length > 0; else noTasks">
+  <tr>
+    <th>Numéro</th>
+    <th>Description</th>
+    <th>Statut</th>
+  </tr>
+
+  <tr *ngFor="let task of tasks;let i = index">
+    <td>{{ i + 1 }}</td>
+    <td>{{ task.label }}</td>
+    <td>
+
+      <span *ngIf="task.completed">Done</span>
+      <span *ngIf="!task.completed">To Do</span>
+      <input type="checkbox" [(ngModel)]="task.completed">
+
+    </td>
+    <td><button type="submit" (click)="updateTask(i+1)">Update status</button></td>
+  </tr>
+
+</table>
+
+<ng-template #noTasks>
+  <table>
+    <tr>
+      <th>Description</th>
+      <th>Statut</th>
+    </tr>
+
+    <h3>Aucune tâche créee !</h3>
+  </table>
+</ng-template>
+
+<h3>Ajouter une tâche :</h3>
+<form (submit)="addTaskSubmit()">
+  <label for="label">Description : </label>
+  <input id="label" name="label" [(ngModel)]="newTask.label" required>
+
+  <button type="submit">Ajouter !</button>
+</form>
